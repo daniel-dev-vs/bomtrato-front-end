@@ -1,30 +1,48 @@
 
-<form>
+<form [formGroup]="processoForm" (onSubmit)="salvar()">
+  
   <div class="mb-3 col-md-12 ">
-    <label for="Processo" class="form-label">Número Processo</label>
-    <input type="text" class="form-control" id="Processo" placeholder="">
+    <label for="numeroProcesso" class="form-label">Número Processo</label>
+    <input type="text"
+     class="form-control"
+      formControlName="numeroProcesso"
+       id="numeroProcesso" placeholder="">
   </div>
+
   <div class="mb-3 col-md-12 ">
-    <label for="Valor" class="form-label">Valor</label>
-    <input type="text" class="form-control" id="Valor" placeholder="">
+    <label for="valor"  class="form-label">Valor</label>    
+    <input type="text" class="form-control"
+     formControlName="valor"
+     id="valor" placeholder="">
   </div>
+
   <div class="mb-3 col-md-12">
     <label for="Escritório" class="form-label">Escritório</label>
-    <input type="text" class="form-control" id="Escritório" placeholder="">
+    <input type="text"
+     class="form-control"
+     id="escritorio" formControlName="escritorio"
+     placeholder="">
   </div>
   <div class="mb-3 col-md-12">
     <label for="Reclamante" class="form-label">Reclamante</label>
-    <input type="text" class="form-control" id="Reclamante" placeholder="">
+    <input type="text"
+     class="form-control"
+      id="reclamante" formControlName="reclamante"
+       placeholder="">
   </div>
   <div class="mb-3 col-md-12">
     <label for="aprovado" class="form-label">
-      <input type="checkbox" class="" id="aprovado" placeholder=""> Aprovado
+      <input type="checkbox" class="" 
+      id="aprovado"
+       placeholder="" formControlName="aprovado" > Aprovado
     </label>
     
   </div>
   <div class="mb-3 col-md-12">
     <label for="ativo" class="form-label">
-      <input type="checkbox" class="" id="ativo"> Ativo
+      <input type="checkbox"
+       class="" 
+       id="ativo" formControlName="ativo" > Ativo
     </label>
     
   </div>
@@ -32,7 +50,10 @@
   <div class="col-md-12">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       
-      <button type="button" class="btn btn-primary" routerLink="/processo/criar">Enviar processo</button>
+      <button type="submit" 
+      class="btn btn-primary" 
+      [disabled]="!processoForm.valid"
+       >Enviar processo</button>
     </div>
   
   </div> 
