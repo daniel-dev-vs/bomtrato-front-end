@@ -1,1 +1,1 @@
-# bomtrato-front-end
+# bomtrato-frontend
