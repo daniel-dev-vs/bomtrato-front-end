@@ -5,7 +5,7 @@ import { ProcessoComponent } from './processo/processo.component';
 import { AppComponent } from './app.component';
 
 const rotas : Routes = [
-  {path: '', component: ProcessoComponent}
+  { path: '', pathMatch: 'full', component: ProcessoComponent}
 ] 
 
 @NgModule({

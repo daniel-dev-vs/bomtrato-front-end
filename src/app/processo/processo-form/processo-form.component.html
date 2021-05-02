@@ -1,27 +1,40 @@
 
 <form>
-  <div class="mb-3">
+  <div class="mb-3 col-md-12 ">
     <label for="Processo" class="form-label">Número Processo</label>
-    <input type="text" class="form-control" id="Processo" placeholder="Example input placeholder">
+    <input type="text" class="form-control" id="Processo" placeholder="">
   </div>
-  <div class="mb-3">
+  <div class="mb-3 col-md-12 ">
     <label for="Valor" class="form-label">Valor</label>
-    <input type="text" class="form-control" id="Valor" placeholder="Another input placeholder">
+    <input type="text" class="form-control" id="Valor" placeholder="">
   </div>
-  <div class="mb-3">
+  <div class="mb-3 col-md-12">
     <label for="Escritório" class="form-label">Escritório</label>
-    <input type="text" class="form-control" id="Escritório" placeholder="Another input placeholder">
+    <input type="text" class="form-control" id="Escritório" placeholder="">
   </div>
-  <div class="mb-3">
+  <div class="mb-3 col-md-12">
     <label for="Reclamante" class="form-label">Reclamante</label>
-    <input type="text" class="form-control" id="Reclamante" placeholder="Another input placeholder">
+    <input type="text" class="form-control" id="Reclamante" placeholder="">
   </div>
-  <div class="mb-3">
-    <label for="Aprovado" class="form-label">Aprovado</label>
-    <input type="checkbox" class="form-control" id="Aprovado" placeholder="Another input placeholder">
+  <div class="mb-3 col-md-12">
+    <label for="aprovado" class="form-label">
+      <input type="checkbox" class="" id="aprovado" placeholder=""> Aprovado
+    </label>
+    
   </div>
-  <div class="mb-3">
-    <label for="Ativo" class="form-label">Ativo</label>
-    <input type="text" class="form-control" id="Ativo" placeholder="Another input placeholder">
+  <div class="mb-3 col-md-12">
+    <label for="ativo" class="form-label">
+      <input type="checkbox" class="" id="ativo"> Ativo
+    </label>
+    
   </div>
+
+  <div class="col-md-12">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      
+      <button type="button" class="btn btn-primary" routerLink="/processo/criar">Enviar processo</button>
+    </div>
+  
+  </div> 
+
 </form>
