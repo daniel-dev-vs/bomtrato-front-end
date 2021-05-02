@@ -1,0 +1,31 @@
+<app-titulo [titulo]="titulo"></app-titulo>
+
+<section>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Número Processo</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Escritório</th>
+            <th scope="col">Reclamante</th>
+            <th scope="col">Ativo</th>
+            <th scope="col">Aprovado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of processos"> 
+            <th scope="row">{{p.id}}</th>
+            <td>{{p.numeroProcesso}}</td>
+            <td>{{p.valor}}</td>
+            <td>{{p.escritorio}}</td>
+            <td>{{p.reclamante}}</td>
+            <td>{{p.aprovado}}</td>
+            <td>{{p.ativo}}</td>
+          </tr>
+        
+        </tbody>
+      </table>
+
+</section>
+
