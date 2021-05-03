@@ -10,22 +10,21 @@ import { ProcessoComponent } from './processo/processo.component';
 import { TituloComponent } from './titulo/titulo.component';
 import { ProcessoFormComponent } from './processo/processo-form/processo-form.component';
 import { ProcessoModule } from './processo/processo.module';
-import { ProcessoRouting } from './processo/processo-routing.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-       
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,    
+    AppRoutingModule,
     ProcessoModule,
-    ProcessoRouting,
     BsDropdownModule.forRoot(),
-    BrowserAnimationsModule,  
-    
+    BrowserAnimationsModule,
+
   ],
   exports:[],
   providers: [],

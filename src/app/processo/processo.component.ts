@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Processo } from './shared/processo';
+import { IProcesso } from './shared/processo.interface';
+import { ProcessoService } from './shared/processo.service';
 
 @Component({
   selector: 'app-processo',
@@ -11,42 +14,49 @@ export class ProcessoComponent implements OnInit {
 
   titulo = 'Página de processos';
 
-  processos: Processo[] = [
-    {
-      id: 1,
-      numeroProcesso: 123445678,
-      valor: 50000,
-      escritorio: "são paulo",
-      reclamante: "reclamao",
-      ativo: false,
-      aprovado: false
+  processos: IProcesso[];
 
-    },
-    {
-      id: 2,
-      numeroProcesso: 123445678,
-      valor: 50000,
-      escritorio: "são paulo",
-      reclamante: "reclamao",
-      ativo: false,
-      aprovado: false
-
-
-    },
-    {
-      id: 3,
-      numeroProcesso: 123445678,
-      valor: 50000,
-      escritorio: "são paulo",
-      reclamante: "reclamao",
-      ativo: false,
-      aprovado: false
-
-    }];
-
-  constructor() { }
+  constructor(private _processoService: ProcessoService, private _router: Router) { }
 
   ngOnInit(): void {
+    this.carregarProcessos();
+  }
+
+  carregarProcessos() {
+    this._processoService.getProcessos()
+      .subscribe(
+        (processos : IProcesso []) => {
+          this.processos = processos;
+        },
+        (err) => {
+
+          console.error(err);
+        }
+      );
+  }
+
+  deletar(id){
+    if (confirm(`Você tem certeza que quer deletar o processo de id ${id} ?`)){
+      this._processoService.deleteProcesso(id)
+      .subscribe((e: any) => {
+
+        alert("Excluído com sucesso");
+
+        this.carregarProcessos();
+      },
+        err => {
+          alert("não foi possível excluir");
+          console.error(err);
+
+        },
+        () => {
+           this._router.navigate(['processos']);
+        });
+
+    }
+
+
+
   }
 
 }

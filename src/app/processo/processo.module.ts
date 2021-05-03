@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule }  from '@angular/router';
+import { RouterModule, Route }  from '@angular/router';
 import { HttpClientModule }  from '@angular/common/http'
 
 
 import { ProcessoComponent } from './processo.component';
-//import { ProcessosService } from './shared/processos.service';
 import { ProcessoFormComponent } from './processo-form/processo-form.component';
 //import { CheckBoxParaSimOuNAoPipe } from './shared/check-box-para-sim-ou-nao.pipe';
 import { TituloComponent } from '../titulo/titulo.component';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProcessoService } from './shared/processo.service';
+import { AppRoutingModule } from '../app-routing.module';
+import { SimOuNaoPipe } from './shared/sim-ou-nao.pipe';
 
 //registerLocaleData(localePt, 'pt');
 
@@ -22,21 +22,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
-    BsDropdownModule.forRoot(),
-    BrowserAnimationsModule,  
+
+
+
   ],
   declarations: [
     ProcessoComponent,
     ProcessoFormComponent,
-    TituloComponent
+    TituloComponent,
+    SimOuNaoPipe,
+
    // CheckBoxParaSimOuNAoPipe,
   ],
   exports: [
     ProcessoComponent
   ],
   providers: [
-    //ProcessosService
-  
-  ]
+    ProcessoService
+  ],
+
 })
 export class ProcessoModule { }

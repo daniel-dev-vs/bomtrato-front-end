@@ -1,6 +1,9 @@
+import { IProcesso } from './../shared/processo.interface';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Processo } from '../shared/processo';
+import { ProcessoService } from '../shared/processo.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-processo-form',
@@ -10,17 +13,53 @@ import { Processo } from '../shared/processo';
 export class ProcessoFormComponent implements OnInit {
 
   processoForm: FormGroup;
-  processoSelecionado: Processo = new Processo();;
-  constructor(private fb: FormBuilder ) {
-    this.criarForm();
-   }
+  titulo: string;
+  descAtivo: string;
+  descAprovado: string;
+  mensagem: string;
+  idParam: string;
+  enviado = false;
 
-  ngOnInit(): void {
-    
+  constructor(private _fb: FormBuilder,
+    private _processoService: ProcessoService,
+    private _router: Router,
+    private _route: ActivatedRoute) {
+    console.log(_router);
+
   }
 
-  criarForm(){
-    this.processoForm = this.fb.group({
+  ngOnInit(): void {
+    this.criarForm();
+
+    this._route.params.subscribe(params => {
+      this.idParam = params['id'];
+
+      this.titulo = this.idParam ? 'Editar processo' : 'Cadastrar novo processo';
+      this.mensagem = this.idParam ? 'Editado' : 'Cadastrado'
+
+      if (!this.idParam)
+        return;
+
+      this._processoService.getProcesso(this.idParam)
+        .subscribe(
+          (processo: Processo) => {
+
+            this.processoForm.patchValue(processo)
+            this.descAtivo = processo.aprovado == true ? 'Desaprovar' : 'Aprovar';
+            this.descAprovado = processo.ativo == true ? 'Inativar' : 'Ativar';
+          },
+          response => {
+            if (response.statusCode == 404) {
+              this._router.navigate(['NotFound']);
+            }
+          });
+    });
+
+  }
+
+  criarForm() {
+    this.processoForm = this._fb.group({
+      id: [0],
       numeroProcesso: ['', [
         Validators.required,
         Validators.minLength(12),
@@ -29,14 +68,15 @@ export class ProcessoFormComponent implements OnInit {
       ]],
       valor: ['', [
         Validators.required,
-        Validators.min(30000)
+        Validators.minLength(30000)
       ]],
       escritorio: ['', [
         Validators.required,
         Validators.minLength(3)]
       ],
       reclamante: ['', [
-        Validators.required]],
+        Validators.required,
+        Validators.minLength(3)]],
       aprovado: [false, [
       ]],
       ativo: [false, [
@@ -45,8 +85,62 @@ export class ProcessoFormComponent implements OnInit {
     });
   }
 
-  salvar(){
-    console.log('enviou')
+  get f (){ return this.processoForm.controls;}
+
+
+  salvar() {
+
+    this.enviado = true;
+
+    // stop here if form is invalid
+    if (this.processoForm.invalid) {
+        return;
+    }
+
+
+    let envio : Processo = new Processo().converterFormParaProcesso(this.processoForm.value);
+
+    if (this.idParam !== undefined) {
+      envio.id = parseInt(this.idParam);
+      this._processoService.updateProcesso(envio).
+        subscribe((x) => {
+          alert(`${this.mensagem} com sucesso`);
+
+          this._router.navigate(['processos']);
+
+        },
+          erro => {
+
+            if (erro.status == 409) {
+              alert('Não foi possível completar a requisição, pois esse registro já existe');
+              this._router.navigate(['processos']);
+            } else {
+              alert('Ops houve algum problema por favor tente de novo.');
+            }
+            console.error(erro);
+          });
+
+    } else {
+      this._processoService.addProcesso(envio)
+        .subscribe((x) => {
+          alert(`${this.mensagem} com sucesso`);
+
+          this._router.navigate(['processos']);
+
+        }, erro => {
+
+          if (erro.status == 409) {
+            alert('Não foi possível completar a requisição, pois esse registro já existe');
+            this._router.navigate(['processos']);
+          } else {
+            alert('Ops houve algum problema por favor tente de novo.');
+          }
+          console.error(erro);
+        });
+
+
+    }
+
   }
 
 }

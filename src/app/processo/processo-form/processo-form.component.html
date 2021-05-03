@@ -1,61 +1,87 @@
+<app-titulo [titulo]="titulo"></app-titulo>
 
-<form [formGroup]="processoForm" (onSubmit)="salvar()">
-  
-  <div class="mb-3 col-md-12 ">
+<form [formGroup]="processoForm" (submit)="salvar()">
+
+  <div class="form-group">
     <label for="numeroProcesso" class="form-label">Número Processo</label>
-    <input type="text"
-     class="form-control"
-      formControlName="numeroProcesso"
-       id="numeroProcesso" placeholder="">
+    <input type="text" class="form-control" formControlName="numeroProcesso" id="numeroProcesso"
+      [class]="{ 'is-invalid': enviado && f.numeroProcesso.errors }">
+
+    <div *ngIf="enviado && f.numeroProcesso.errors" class="invalid-feedback">
+      <div *ngIf="f.numeroProcesso.errors.required">numero processo é obrigatório</div>
+      <div *ngIf="f.numeroProcesso.errors.minlength">Este campo é obrigatório 12 caracateres, e possui menos de 12.
+      </div>
+      <div *ngIf="f.numeroProcesso.errors.maxlength">Este campo é obrigatório 12 caracateres, e possui mais de 12</div>
+    </div>
+
+
+
   </div>
 
-  <div class="mb-3 col-md-12 ">
-    <label for="valor"  class="form-label">Valor</label>    
-    <input type="text" class="form-control"
-     formControlName="valor"
-     id="valor" placeholder="">
+  <div class="form-group">
+    <label for="valor" class="form-label">Valor</label>
+    <input type="text" class="form-control" formControlName="valor" id="valor"
+      [class]="{ 'is-invalid': enviado && f.valor.errors }">
+
+    <div *ngIf="enviado && f.valor.errors" class="invalid-feedback">
+      <div *ngIf="f.valor.errors.required">valor é obrigatório</div>
+      <div *ngIf="f.valor.errors.min">o valor mínimo é de 30000</div>
+    </div>
+
+
   </div>
 
-  <div class="mb-3 col-md-12">
-    <label for="Escritório" class="form-label">Escritório</label>
-    <input type="text"
-     class="form-control"
-     id="escritorio" formControlName="escritorio"
-     placeholder="">
+  <div class="form-group">
+    <label for="escritorio" class="form-label">Escritório</label>
+    <input type="text" class="form-control" id="escritorio" formControlName="escritorio"
+      [class]="{ 'is-invalid': enviado && f.escritorio.errors }">
+
+
+      <div *ngIf="enviado && f.escritorio.errors" class="invalid-feedback">
+        <div *ngIf="f.escritorio.errors.required">escritório é obrigatório</div>
+        <div *ngIf="f.escritorio.errors.minlength">o valor mínimo é de 3 caracteres</div>
+      </div>
+
   </div>
-  <div class="mb-3 col-md-12">
-    <label for="Reclamante" class="form-label">Reclamante</label>
-    <input type="text"
-     class="form-control"
-      id="reclamante" formControlName="reclamante"
-       placeholder="">
+
+
+
+
+  <div class="form-group">
+    <label for="reclamante" class="form-label">Reclamante</label>
+    <input type="text" class="form-control" id="reclamante" formControlName="reclamante"
+      [class]="{ 'is-invalid': enviado && f.reclamante.errors }">
+
+      <div *ngIf="enviado && f.reclamante.errors" class="invalid-feedback">
+        <div *ngIf="f.reclamante.errors.required">escritório é obrigatório</div>
+        <div *ngIf="f.reclamante.errors.minlength">o valor mínimo é de 3 caracteres</div>
+      </div>
   </div>
+
+
+
+
   <div class="mb-3 col-md-12">
     <label for="aprovado" class="form-label">
-      <input type="checkbox" class="" 
-      id="aprovado"
-       placeholder="" formControlName="aprovado" > Aprovado
+      <input type="checkbox" class="" id="aprovado" formControlName="aprovado"> Aprovado
     </label>
-    
+
   </div>
   <div class="mb-3 col-md-12">
     <label for="ativo" class="form-label">
-      <input type="checkbox"
-       class="" 
-       id="ativo" formControlName="ativo" > Ativo
+      <input type="checkbox" class="" id="ativo" formControlName="ativo"> Ativo
     </label>
-    
+
   </div>
 
   <div class="col-md-12">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      
-      <button type="submit" 
-      class="btn btn-primary" 
-      [disabled]="!processoForm.valid"
-       >Enviar processo</button>
+
+      <input type="submit" class="btn btn-primary">
+
     </div>
-  
-  </div> 
+
+  </div>
 
 </form>
+<!-- [disabled]="!processoForm.valid"-->
