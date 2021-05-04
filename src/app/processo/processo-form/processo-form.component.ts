@@ -1,6 +1,6 @@
 import { IProcesso } from './../shared/processo.interface';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Processo } from '../shared/processo';
 import { ProcessoService } from '../shared/processo.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -64,19 +64,22 @@ export class ProcessoFormComponent implements OnInit {
         Validators.required,
         Validators.minLength(12),
         Validators.maxLength(12),
-        Validators.pattern("^[0-9]*$")
+        Validators.pattern('^[0-9]*$')
       ]],
       valor: ['', [
         Validators.required,
-        Validators.minLength(30000)
+        Validators.min(30000),
+        Validators.pattern('^[0-9]*$')
       ]],
       escritorio: ['', [
         Validators.required,
-        Validators.minLength(3)]
+        Validators.maxLength(50), Validators.pattern(/[a-zA-Z\s]*$/)],
+
       ],
       reclamante: ['', [
         Validators.required,
-        Validators.minLength(3)]],
+        Validators.maxLength(100),Validators.pattern(/[a-zA-Z\s]*$/)],
+        ],
       aprovado: [false, [
       ]],
       ativo: [false, [
@@ -85,20 +88,20 @@ export class ProcessoFormComponent implements OnInit {
     });
   }
 
-  get f (){ return this.processoForm.controls;}
+  get f() { return this.processoForm.controls; }
 
 
-  salvar() {
+  salvar(): boolean {
 
     this.enviado = true;
 
     // stop here if form is invalid
     if (this.processoForm.invalid) {
-        return;
+      return false;
     }
 
 
-    let envio : Processo = new Processo().converterFormParaProcesso(this.processoForm.value);
+    let envio: Processo = new Processo().converterFormParaProcesso(this.processoForm.value);
 
     if (this.idParam !== undefined) {
       envio.id = parseInt(this.idParam);
@@ -137,10 +140,10 @@ export class ProcessoFormComponent implements OnInit {
           }
           console.error(erro);
         });
-
-
     }
 
+
+    return true;
   }
 
 }

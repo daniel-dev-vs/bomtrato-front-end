@@ -8,10 +8,11 @@
       [class]="{ 'is-invalid': enviado && f.numeroProcesso.errors }">
 
     <div *ngIf="enviado && f.numeroProcesso.errors" class="invalid-feedback">
-      <div *ngIf="f.numeroProcesso.errors.required">numero processo é obrigatório</div>
-      <div *ngIf="f.numeroProcesso.errors.minlength">Este campo é obrigatório 12 caracateres, e possui menos de 12.
+      <div *ngIf="f.numeroProcesso.errors?.required">numero processo é obrigatório</div>
+      <div *ngIf="f.numeroProcesso.errors?.minlength">Este campo é obrigatório 12 caracateres, e possui menos de 12.
       </div>
-      <div *ngIf="f.numeroProcesso.errors.maxlength">Este campo é obrigatório 12 caracateres, e possui mais de 12</div>
+      <div *ngIf="f.numeroProcesso.errors?.maxlength">Este campo é obrigatório 12 caracateres, e possui mais de 12</div>
+      <div *ngIf="f.numeroProcesso.errors?.pattern">Este campo só aceita numeros</div>
     </div>
 
 
@@ -23,9 +24,10 @@
     <input type="text" class="form-control" formControlName="valor" id="valor"
       [class]="{ 'is-invalid': enviado && f.valor.errors }">
 
-    <div *ngIf="enviado && f.valor.errors" class="invalid-feedback">
-      <div *ngIf="f.valor.errors.required">valor é obrigatório</div>
-      <div *ngIf="f.valor.errors.min">o valor mínimo é de 30000</div>
+      <div *ngIf="enviado && f.valor.errors" class="invalid-feedback">
+      <div *ngIf="f.valor.errors?.required">valor é obrigatório</div>
+      <div *ngIf="f.valor.errors?.min">o valor mínimo é de 30000</div>
+      <div *ngIf="f.valor.errors?.pattern">Este campo só aceita numeros</div>
     </div>
 
 
@@ -38,8 +40,9 @@
 
 
       <div *ngIf="enviado && f.escritorio.errors" class="invalid-feedback">
-        <div *ngIf="f.escritorio.errors.required">escritório é obrigatório</div>
-        <div *ngIf="f.escritorio.errors.minlength">o valor mínimo é de 3 caracteres</div>
+        <div *ngIf="f.escritorio.errors?.required">escritório é obrigatório</div>
+        <div *ngIf="f.escritorio.errors?.maxlength">o valor máximo é de 50 caracteres</div>
+        <div *ngIf="f.escritorio.errors?.pattern">Este campo só aceita letras</div>
       </div>
 
   </div>
@@ -53,8 +56,9 @@
       [class]="{ 'is-invalid': enviado && f.reclamante.errors }">
 
       <div *ngIf="enviado && f.reclamante.errors" class="invalid-feedback">
-        <div *ngIf="f.reclamante.errors.required">escritório é obrigatório</div>
-        <div *ngIf="f.reclamante.errors.minlength">o valor mínimo é de 3 caracteres</div>
+        <div *ngIf="f.reclamante.errors?.required">escritório é obrigatório</div>
+        <div *ngIf="f.reclamante.errors?.maxlength">o valor máximo é de 100 caracteres</div>
+        <div *ngIf="f.reclamante.errors?.pattern">Este campo só aceita letras</div>
       </div>
   </div>
 

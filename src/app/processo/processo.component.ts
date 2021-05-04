@@ -13,8 +13,9 @@ export class ProcessoComponent implements OnInit {
 
 
   titulo = 'Página de processos';
-
+  items = [];
   processos: IProcesso[];
+
 
   constructor(private _processoService: ProcessoService, private _router: Router) { }
 
@@ -22,11 +23,13 @@ export class ProcessoComponent implements OnInit {
     this.carregarProcessos();
   }
 
-  carregarProcessos() {
+  carregarProcessos(): void {
     this._processoService.getProcessos()
       .subscribe(
-        (processos : IProcesso []) => {
+
+        (processos: IProcesso[]) => {
           this.processos = processos;
+          this.items = Array.from(processos);
         },
         (err) => {
 
@@ -35,28 +38,31 @@ export class ProcessoComponent implements OnInit {
       );
   }
 
-  deletar(id){
-    if (confirm(`Você tem certeza que quer deletar o processo de id ${id} ?`)){
+  deletar(id): void {
+    if (confirm(`Você tem certeza que quer deletar o processo de id ${id} ?`)) {
       this._processoService.deleteProcesso(id)
-      .subscribe((e: any) => {
+        .subscribe((e: any) => {
 
-        alert("Excluído com sucesso");
+          alert('Excluído com sucesso');
 
-        this.carregarProcessos();
-      },
-        err => {
-          alert("não foi possível excluir");
-          console.error(err);
-
+          this.carregarProcessos();
         },
-        () => {
-           this._router.navigate(['processos']);
-        });
+          err => {
+            alert('não foi possível excluir');
+            console.error(err);
+
+          },
+          () => {
+            this._router.navigate(['processos']);
+          });
 
     }
+  }
 
 
-
+  onChangePage(processos: Array<any>): void {
+    // update current page of items
+    this.processos = processos;
   }
 
 }

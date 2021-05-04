@@ -12,6 +12,7 @@ import { TituloComponent } from '../titulo/titulo.component';
 import { ProcessoService } from './shared/processo.service';
 import { AppRoutingModule } from '../app-routing.module';
 import { SimOuNaoPipe } from './shared/sim-ou-nao.pipe';
+import { JwPaginationModule } from 'jw-angular-pagination';
 
 //registerLocaleData(localePt, 'pt');
 
@@ -22,8 +23,7 @@ import { SimOuNaoPipe } from './shared/sim-ou-nao.pipe';
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
-
-
+    JwPaginationModule
 
   ],
   declarations: [
